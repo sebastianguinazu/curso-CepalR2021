@@ -1,0 +1,11 @@
+
+modulo 1. intoducción a R
+
+video1: introducción a R desde 0 
+video2: introducción a github
+video3: estructura de datos: vectores, listas, data frames
+video4: introduccion a tidyverse
+video5: datos temporales y series de tiempo
+video6: programación funcional: loops y funciones
+
+posibles bases: wb, endei, gcba, eph, properati, oede

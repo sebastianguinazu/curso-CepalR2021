@@ -2,10 +2,20 @@
 modulo 1. intoducción a R
 
 video1: introducción a R desde 0 
+	- instalación de R
+	- instalación de RStudio
+	- instalación de paquetes (tidyverse)
+
 video2: introducción a github
+	- instalación de github
+	- intalación de github bash
+	- uso básico de github
+	- uso de github desde RStudio
+
 video3: estructura de datos: vectores, listas, data frames
-video4: introduccion a tidyverse
-video5: datos temporales y series de tiempo
+video4: carga de archivos desde R
+video5: introduccion a tidyverse
+video6: datos temporales y series de tiempo
 video6: programación funcional: loops y funciones
 
 posibles bases: wb, endei, gcba, eph, properati, oede

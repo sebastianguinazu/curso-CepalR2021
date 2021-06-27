@@ -1,0 +1,271 @@
+---
+title: "Introduccion a la Ciencia de Datos"
+output:
+  html_document:
+    #css: style.css 
+    fig_height: 8
+    fig_width: 12
+    number_sections: yes
+    theme: paper
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      toc_collapsed: yes
+editor_options:
+  chunk_output_type: console
+---
+```{r options, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      error = FALSE,
+                      message = FALSE)
+
+``` 
+
+Curso Introduccion a la Ciencia de Dato para su uso en políticas públicas. Oficina de la CEPAL en Buenos Aires. Modalidad virtual.
+
+# Conociendo RStudio
+
+Comenzaremos repasando algunos conceptos generales de R y presentaremos también RStudio, el software que vamos a utilizar durante todo el curso. 
+
+## R y RSudio
+
+R es un lenguaje de programación orientado principalmente a la manipulación de datos y al análisis estadístico. Existen diferentes formas de ejecutar R (por ejemplo, con el ícono que aparece cuando instalamos R, directamente en la línea de comando, con Jupyter, entre otras). Sin embargo, hay cierto consenso en la comunidad de usuarios acerca que la mejor forma de utilizar el lenguage es en RStudio. Este software es un entorno de desarrollo integrado específicamente para el lenguaje de programación R. Incluye una consola, un editor de sintaxis que facilita la ejecución de código, así como herramientas para el trazado, la depuración y la gestión del espacio de trabajo.
+
+
+## Layout de RStudio y primeras líneas
+
+El layout de RStudio divide la pantalla en cuatro. El espacio más importante es el editor de código, donde vamos a trabajar en nuestros scripts. En ellos, escribiremos instrucciones en lenguage R para minipular los datos, y luego podremos guardarlos. 
+Vamos entonces a empezar a escribir nuestro primer script, para eso debemos decirle a Rstudio que nos cree uno de la siguiente manera: **File** -> **New File** -> **R script**. 
+
+Vemos que esto nos abre una nueva área en la pantalla. Llamaremos a esta parte **Panel de Edición** y será donde vamos a escribir toda la lógica de nuestro script. El área que se encuentra debajo del Panel de Edición es lo que llamaremos **Consola**, que es donde finalmente se ejecuta cada instrucción que vamos a ir escribiendo arriba y donde obtendremos las respuestas de R frente a cada línea que ejecutemos.   
+
+Tenemos dos áreas más a la derecha, la de arriba será donde vamos a ir viendo todas las cosas que vamos a ir almacenando la llamaremos **Panel de variables**; abajo si bien ahora vemos un explorador de archivos, la vamos a llamar **Panel de salida** ya que aquí veremos los gráficos también. Para facilitar el posterior acceso a todo lo que necesitamos y tener todo los recursos que vayamos a utilizar en un mismo lugar, podemos en este panel (en la pestaña de Carpetas, Files), darle click a: **More** -> **Show Folder in New Window**, que nos abrira en el explorador de carpetas de nuestro sistema operativo la ubicacion de nuestro proyecto. Aquí deberíamos pegar todo lo que pensamos que vamos a utilizar en nuestros proyectos.
+
+![](paneles.PNG "Logo Title Text 1")
+
+## Creación de un proyecto en RStudio
+
+Una forma recomendada de trabajar en RStudio es utilizando la herramienta **proyectos**. Estos nos permiten trabajar en nuestros proyectos de forma ordenada y son realmente útiles a la hora de compartir el trabajo a otros colaboradores. 
+
+Para crear un Proyecto vamos a darle click en **File** -> **New Project**. Deberemos entonces seleccionar que queremos un proyecto nuevo en una ubicación nueva y le pondremos un nombre a elección.
+
+
+## Primeras lineas de código
+
+Veamos un ejemplo de código...  
+
+```{r }
+# mecanismo de asignación
+
+mensaje <- 'Primeras lineas de codigo'
+mensaje
+```
+
+Lo que estamos haciendo es guardar la oración "Primeras lineas de codigo" en una variable que se llama "mensaje". Para realizar esto usaremos el símbolo de asignacion de valores " <- " que se puede escribir apretando las teclas alt y - al mismo tiempo.  Es decir, a partir de ahora cuando querramos utilizar lo almacenado en mensaje, sólo debemos escribir mensaje, como quedó escrito en la segundo línea. 
+
+Para correr una línea y se evalúe realmente en la consola podemos utilizar la combinación de teclas ctrl+enter. Este comando correra la línea entera donde esta nuestro cursor o el fragmento de texto que tengamos seleccionado/sombreado. Corramos la primera línea y luego la segunda. Como vemos la primera nos creó nuestra **primera variable** y la podemos ver en el panel de variables o entorno (nuestro panel superior derecho). La segunda línea era simplemente el nombre de la variable, R interpretará que queremos ver el contenido de esa variable, es por eso que nos lo imprime en la consola.
+
+La creación y manipulación de variables es un concepto clave en programación. Esto nos permite almacenar valores para usarlos después, además de que nuestro código pasa a ser más expresivo. 
+
+La **expresividad** es un patrón de diseño en programación e indica cuan fácil de leer va a ser nuestro código. Esto nos lleva a algo muy importante, y se trata de buscar que siempre los nombres que elegimos para las variables, aunque queden largos, sean tan descriptivos de lo que almacenan como nos sea posible.
+
+Veamos un ejemplo, si yo quiero calcular la cantidad de horas que voy a tener que dedicarle a un curso al que me inscribí y conozco la cantidad de horas de cursada, podría resolverlo simplemente:  
+
+```{r }
+x <- 3 * 8
+x
+```
+
+
+Llegamos al resultado. Pero dejar esto en nuestro código probablemente haga que cuando retome luego el script no sepa bien qué quise crear y qué contiene mi variable y por lo tanto será difícl reutilizar esos valores más adelante en el script. Por eso la buena practica sería nombrar de modo descriptivo:
+
+```{r }
+cantidad_horas_por_curso <- 3
+cantidad_cursos <- 8
+horas_de_cursada <- cantidad_horas_por_curso * cantidad_cursos
+horas_de_cursada
+```
+
+Acá podemos ver además, como - a partir de ahora - cuando le pase dentro de una operación el nombre de una variable a R, irá a buscarla dentro de los objetos que vemos en el panel de variables y de encontrarla, utilizará este valor.
+
+# Operadores lógicos
+
+Dentro de R podemos realizar operaciones con los símbolos matemáticos que conocemos. Dentro de las funciones vamos a poder usarlos para definir contenidos que queremos o no ver, para seleccionar o no valores o columbas, etc. Vamos a tener en cuenta esta tabla para poder usarla en futuras operaciones.  
+
+![](operadores_r_todos.PNG "Logo Title Text 1")
+
+Dejamos un pequeño machete para pensar el uso de los operadores:
+
+* `a & b` -> queremos que ambas condiciones sean "verdaderas" (TRUE)
+* `a | b` -> queremos que alguna de las dos condiciones sea "verdadera"
+* `a & !b` -> queremos que a sea "verdadera" y b sea "falsa" (FALSE)
+* `!(a & b)` -> queremos que ambas condiciones den como resultado "falso"
+
+# Tipos de datos
+
+Vamos a concentrarnos  en conocer los principales tipos de datos con los que vamos a tener que interactuar. Hablamos de enteros o "integers" para las variables numéricas, factores o "factors" para las variables categóricas y caracteres o "characters" para los campos de texto. Veamos otros tipos de datos que debemos tener en cuenta.  
+
+## Valores lógicos
+
+Pueden tomar los valores TRUE y FALSE. Y son el resultado de evaluar operaciones logicas. Veamos un ejemplo.
+
+```{r}
+'valor character' == 5
+```
+
+El '==' es el operador lógico, que va a evaluar si los valores que le pasamos antes y despues son iguales.
+
+En opuesto a este operador esta '!=' que evaluara si son diferentes.
+
+```{r}
+'valor character' != 5
+```
+
+Otros operadores lógicos de comparacion - como vimos - son '>' (mayor a), '>=' (mayor o igual a), '<' (menor a) y '<=' (menor o igual a).
+
+```{r}
+6 > 6
+```
+
+```{r}
+6 >= 6
+```
+
+## Valores no disponibles
+
+Otro tipo de dato que es muy comun encontrarse es 'NA' el cual indica que es un valor no disponible (Not Available). Son valores ausentes o desconocidos para un registro. Debemos tener cuidado con estas variables porque las debemos manejar de una manera particular Veamos un ejemplo donde evaluamos con los operadores de comparacion anterior un valor NA.
+
+```{r}
+5 >= NA
+```
+
+Cuando le pedimos a R que evalue si en este caso un valor desconocido es mayor o igual a otro valor. Nos dara como resultado un valor desconocido, ya que no lo puede saber. Lo mismo sucede si quisieramos hacer una operacion matematica sobre este valor.
+
+```{r}
+NA + 10 * 4
+```
+
+La pregunta que muchas veces queremos hacer es si un valor es desconocido o si una variable contiene valores desconocidos. Y para eso tenemos una funcion is.na()
+
+```{r}
+is.na(NA)
+```
+
+También existe el dato "fecha", un tema que veremos más adelante, cuando dispongamos de elementos que nos permitan manejar éste tipo de dato.
+
+## Tipos de objetos en R
+
+En R podemos crear distintos tipos objetos, que se distinguen por su contenido. Probablemente no vayamos a usar esta variedad de elementos con tanta frecuencia, pero vale la pena tenerlos en mente porque tienen algunas propiedades que nos permiten - o no - hacer algunas cosas, por ejemplo al azar, operaciones matemáticas.   
+
+![](tipo_objetos_r.png "Logo Title Text 1")
+
+Veamos brevemente algunos ejemplos:
+
+**Vector**
+
+Un *Vector* es un elemento que admite un único tipo de dato (numérico, character o lógico) y una sóla dimensión. Lo creamos con la función concatenar: c(), como ejemplo:  
+
+```{r}
+vector_numerico <- c(10, 20, 30, 40, 50)
+
+vector_numerico
+```
+
+O caracteres:
+
+```{r}
+vector_characteres <- c("a", "e", "i", "o", "u")
+
+vector_characteres
+```
+
+**Factor**
+
+Un *factor* es un elemento que admite un único tipo de dato (numérico o character). Es leído por R como un conjunto de categorías. Lo creamos con la función factor(), como ejemplo:  
+
+```{r}
+factor <- factor(c("alto", "medio", "bajo"))
+
+factor
+```
+
+**Matriz**
+
+Una *Matriz* es un elemento que admite un único tipo de dato (numérico, character o lógico). Son arreglos rectangulares de filas y columnas. Para construir una matriz se usa la función matrix( ). Por ejemplo, para crear una matriz de 6 filas y 6 columnas (de dimensión 6*6), podemos escribir lo siguiente:  
+
+
+```{r}
+mimatriz <- matrix(data=1:36, nrow=6, ncol=6, byrow=FALSE)
+mimatriz
+```
+
+El argumento data de la función sirve para indicar los datos que se van a almacenar en la matriz, los argumentos "nrow" y "ncol" sirven para definir la dimensión de la matriz y por último el argumento "byrow" sirve para indicar si la información contenida en data se debe ingresar por filas o no.  
+
+**Lista**
+
+Una *Lista* es un conjunto de objetos que se encuentran ordenados y pueden ser distintos. Podemos crearlas con la función list()
+
+Probemos:
+```{r}
+personas <- c("Ana", "Camila", "Juan","Pedro")
+
+edad <- c(30, 36, 21, 54, 18, 42, 61)
+
+altura_aprox <- c(1.7, 1.60, 1.80, 1.63, 1.79, 1.75, 1.59, 1.61)
+
+lista_datos <- list(personas, edad, altura_aprox)
+
+lista_datos
+```
+
+**Dataframe**
+
+*Dataframe* es probablemente lo que más podamos reconocer y lo que más vamos a usar. También puede contener distinto tipo de datos, pero deberan tener la misma cantidad de observaciones (o registros). Esta es la forma de datos más frecuente a utilizar, por lo que veremos diversos ejemplos.  
+
+
+# R y Rmd
+
+Ya trabajamos sobre archivos .R, vamos ahora a conocer sobre los archivos denominados RMarkdown, cuya terminación es **.Rmd**.
+Como su nombre lo indica, refiere a un tipo de lenguaje “marcado” (“markup language”). Esto implica que la estructura está definida por marcas o etiquetas por medio de las cuales podemos codificar y estructurar el formato del contenido, tal como querramos hacerlo.
+El objetivo de los archivos .Rmd es facilitar la salida y, por lo tanto, la diversidad de formas que tenemos para compartir y comunicar los resultados de nuestros procesos de trabajo. Al lo largo de este curso veremos que éstas posibilidades son muy diversas y tan potentes que le brindan a R, una gran capacidad operativa. El contenido puede ser preparado para su directa publicación.  
+Se caracteriza por ser de fácil lectura porque los diferentes tipos de salida se asemejan a formatos de documentos que compartimos y conocemos como documentos de texto, presentaciones/diapositivas, dashboard (tableros), aplicaciones o sitios web.  
+Sirve para embeber por medio de un mismo archivo: código, contenidos de texto y visualizaciones. Puede contener R u otros lenguajes como sql o python.  
+
+La mayor ventaja es la de la **reproducibilidad** del trabajo mediante el uso de diferentes componentes:
+
+* YAML: sintaxis de encabezado que contiene los metadatos con los que deseamos configurar nuestro markdown
+* Texto plano o marcado
+* Chunks: tramos de código a correr  
+
+El botón de Knit corre la función: rmarkdown::render() y compila el documento en una nueva sesión de R que nos permite ver la salida
+
+El paquete que debemos instalar para poder usarlo es: **installed.packages("")**
+
+
+
+---------------------------------------------------------------------------------------
+
+# Cierre
+
+En los próximos encuentros iremos profundizando en los aspectos mencionados y en las capacidades de R. 
+
+Les dejamos algunos sitios con materiales para consultar:
+
+**Sobre R/RStudio**
+
+● Garrett Grolemund y Hadley Wickham: https://es.r4ds.hadley.nz/
+
+● Diversos recursos, Diego Kozlowski: https://sites.google.com/view/diego-kozlowski/teaching?authuser=0
+
+● Emmanuel Paradis: https://cran.r-project.org/doc/contrib/rdebuts_es.pdf
+
+**Sobre RMarkdown**
+
+● Sitio oficial: https://rmarkdown.rstudio.com/lesson-1.html
+
+● Cheat sheet - planitllas de resumen - para descargar:
+https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
+https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
+● Un manual: https://bookdown.org/yihui/rmarkdown/

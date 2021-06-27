@@ -1,0 +1,186 @@
+---
+title: "Introduccion a la Ciencia de Datos"
+output:
+  html_document:
+    #css: style.css 
+    fig_height: 8
+    fig_width: 12
+    number_sections: yes
+    theme: paper
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      toc_collapsed: yes
+editor_options:
+  chunk_output_type: console
+---
+```{r options, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      error = FALSE,
+                      message = FALSE)
+
+``` 
+
+Curso Introduccion a la Ciencia de Dato para su uso en políticas públicas. Oficina de la CEPAL en Buenos Aires. Modalidad virtual.
+
+
+# Funciones
+
+Tomaremos unos momentos para definir qué es una función. Por ahora, vamos a adoptar una definición simple: se trata de un mecanismo que puede aplicar una o varias acciones sobre un objeto, devolviéndonos un resultado.  
+El objeto sobre el cuál se aplicará el mecanismo, es un dato que incorporamos nosotros/as, la función aplicará su proceso y nos devolverá algo diferente o modificado en algún aspecto. En este caso, a read.csv() le pasamos la ubicación del archivo que queremos usar y la función nos trajo la tabla a R. 
+Un esquema visual de este razonamiento puede ser:  
+
+![](funcion.png "Logo Title Text 1")
+
+## Un caso en concreto
+
+Comencemos con un ejemplo concreto. Vamos a cargar datos! 
+
+Vamos a utilizar la función **read.csv** para cargar en las variables estos datos. Lo primero será definir un nombre descriptivo para la variable donde vamos a almacenar los datos. Luego escribimos: read.csv(', y una vez que escribimos la primera comilla, deberíamos poder usando la tecla Tab, ir explorando las carpetas hasta llegar al archivo que queremos abrir, si lo pegamos previamente en la carpeta donde esta nuestro proyecto con el primer Tab ya lo deberíamos ver. Podemos  seleccionar la base moviendonos con las flechitas y presionando Enter. Si está en carpetas sucesivas, deberemos ir seleccionando y apretando Tab hasta llegar. Debería quedar un código como a continuación, donde lo último es el archivo csv.  
+En éste caso tomamos una base de datos disponible en datos.gob.ar, particularmente en: https://datos.gob.ar/dataset/siep-indicadores-sectoriales-construccion/archivo/siep_7.9
+Vamos a ver de cerca la serie de despachos de cemento por tipo de envase, que se encuenta en formato .csv.  
+
+```{r }
+serie_cemento <- read.csv('cemento-series.csv')
+```
+
+
+Como vimos, las tablas en R se llaman data frames. Ahora que tenemos el nuestro, muy probablemente, lo primero que vamos a querer hacer es explorar el contenido.
+
+Para explorarlo hay varias funciones muy útiles que podemos usar o, lo que sería lo mismo, que podemos "correr".
+Volvamos a nuestro data frame para ver algunas de estas funciones.  
+
+```{r }
+names(serie_cemento)
+head(serie_cemento)
+summary(serie_cemento)
+```
+
+
+La primera nos devolverá el nombre de las columnas, la segunda nos dará un pequeño vistazo de las primeras filas y la tercera nos mostrará un resumen del contenido.  
+
+Para ir entendiendo también como trabaja "por atras" R, nos conviene pensar cada columna como un vector de valores. Valores que podrían ser texto, números, fechas, etc. Para acceder a cada uno de estos vectores alcanza con utilizar el signo **'$'** después del nombre del data frame con el nombre de la columna, de la siguiente manera:
+
+```{r eval=FALSE}
+# Veamos cada resultado a medida que corremos cada línea!
+serie_cemento$bolsa
+serie_cemento$indice_tiempo
+unique(serie_cemento$indice_tiempo)
+```
+
+Para poder indagar qué tipo de dato tengo en una variable podemos usar algunas funciones:
+
+```{r}
+typeof(serie_cemento$bolsa)
+
+class(serie_cemento$bolsa)
+```
+
+De todos modos, como veremos, R adopta una forma de lectura de los datos en cuanto llamamos a nuestra información. Más adelante veremos cómo indagar los data frame de manera rápida, general y con bajo costo de procesamiento.  
+
+# Datos ordenados
+
+En el proceso de análisis de datos dedicamos alrededor de 80% del tiempo a limpiar y preparar estos datos. Esto no sucede como primer paso y por única vez, sino que se extiende a lo largo del proceso a medida que surgen nuevas preguntas o nuevos problemas a resolver. Aprenderemos a organizar los datos en datasets de manera ordenada (tidy data) para facilitar su procesamiento y análisis posterior. Esta tarea puede demandar algo de trabajo pero redunda en muchos beneficios, facilitando la exploración inicial y su análisis posterior.  La estructura del conjunto debe representar su significado.
+Hay tres reglas que hacen que Un dataset o conjunto de datos sea ordenado: 
+
+* Cada variable debe tener su propia columna.
+
+* Cada observación debe tener su propia fila. 
+
+* Cada valor debe tener su propia celda.
+
+## Tidyverse I
+
+Vamos a introducir el término **library** o package, también visto como paquete, biblioteca o librería. ¿Qué es una librería? Es un conjunto de funciones que alguien programó y guardó en un package público. De algún modo, alguien nos las ha puesto a disposición.  
+Esa es una de las características que hacen muy potente a R, al ser un lenguaje de programación de código abierto, todas/os podemos colaborar.   
+Vamos a instalar y usar un paquete que contiene muchísimas funciones y herramientas fundamentales para el ordenamiento de los datos y más: **tidyverse**. Para instalar el paquete, tenemos dos opciones. Podemos ir a **Tools -> Install Packages** y escribimos el nombre del paquete o escribimos en la consola lo siguiente: install.packages('tidyverse'). Este comando puede utilizarse para instalar cualquier paquete, solo hay que recordar que el nombre va entre comillas. La instalación se realiza por única vez, pero cada vez que iniciamos sesión en Rstudio debemos indicar que vamos a utilizar esta biblioteca en el script para cargar sus funciones escribiendo library(tidyverse) ...sin comillas!
+
+```{r }
+library(tidyverse)
+```
+
+A partir de acá vamos a acercarnos a la lógica algorítmica más cruda y vamos a hacer un vistazo de lo que es un proyecto entero en R.
+
+Como vimos cuando exploramos nuestro data frame, tenemos datos sobre toneladas de cemento despachadas según sus modalidades de traslado, donde cada fila es un registro mensual entre enero de 2011 a junio de 2019. Imaginemos que queremos conocer la suma de toneladas de cemento despachadas a granel.  
+
+```{r }
+serie_cemento_granel <- sum(serie_cemento$granel)
+serie_cemento_granel # al reescribir el nombre del objeto, R nos lo imprime en la consola
+```
+
+Lo que hicimos aquí fue asignar a una nueva variable serie_cemento_granel un valor. El valor es el resultado de la función **sum()**, que sumará cada valor de una columna numérica determinada perteneciente a un data frame.   
+
+Si quisiéramos luego ordenar los despachos de cemento por cantidad, la función a utilizar será **arrange()**. Arrange también recibe los mismos parámetros que usamos antes: un data frame y una columna con una variable ordenable. Por default, éste orden es ascendente.  
+
+```{r }
+serie_cemento_granel_ordenada <- arrange(serie_cemento, granel)
+```
+
+```{r echo=FALSE}
+knitr::kable(head(serie_cemento_granel_ordenada))
+```
+
+En muchos casos es preferible ordenarlo de manera descendente, para eso solo debemos agregar que el nombre de la columna esté dentro de un **desc()**.  
+
+```{r }
+serie_cemento_granel_ordenada <- arrange(serie_cemento, desc(granel))
+```
+
+```{r echo=FALSE}
+knitr::kable(head(serie_cemento_granel_ordenada))
+```
+
+Y también podemos necesitar quedarnos con la selección de una o más variables. En ese caso podemos usar **select()**.  
+
+```{r }
+seleccion_cemento_granel <- select(serie_cemento_granel_ordenada, granel)
+```
+
+```{r echo=FALSE}
+(head(seleccion_cemento_granel))
+```
+
+Bueno lo tenemos, pero no es una práctica que pueda escalar a un script largo esto de crear objetos nuevos cada vez que necesitamos aplicar un cambio a nuestro data frame. Es decir, un objeto por cada función que aplicamos a un data frame. Una manera muy simple de hacer esto es usar el **pipe** de **magrittr**. 
+Este símbolo hace que podamos aplicar muchas funciones a un mismo data frame. En otras palabras, le indicara a R que espere encontrarse en la próxima linea de código con otra operacion a realizar sobre el data frame o resultado que le indicamos solamente al inicio del esquema.  
+La forma rápida en el teclado de incorporar el pipe es **"ctrl+shift+m"**
+Veamos un ejemplo:   
+
+```{r }
+cemento_granel <- serie_cemento %>% 
+  arrange(desc(granel)) %>% 
+  select(granel)
+```
+
+```{r echo=FALSE}
+head(cemento_granel)
+```
+
+Como el **pipe** siempre trabaja sobre sobre el resultado parcial del data frame de la línea anterior, no es necesario indicarle explícitamente sobre qué data frame aplicar cada función. 
+
+Por último, si quisieramos exportar el data frame, podríamos correr el siguiente código.
+
+```{r eval=FALSE}
+
+write.csv2(cemento_granel,
+           file = 'cemento_granel.csv',
+           row.names = FALSE)
+
+```
+
+El primer parámetro será la variable donde guardamos el data frame que queremos exportar, luego el path o la ruta donde queremos que se guarde y por último pondremos el parametro 'row.names' en FALSE para evitar que R no nos genere una columna con valores consecutivos ya que comunmente no nos sera de utilidad.  
+
+
+Existen dos paquetes más, que sirven para leer y escribir archivos .xlsx
+
+```{r}
+library(readxl) # Una vez instalada, sirve para abrir un excel
+library(writexl) # Una vez instalada, sirve para guardar un excel
+```
+
+Para leer vamos a utilizar la función read_excel(), a la que le pasaremos el path de nuestro archivo a llamar y el nombre de la hoja (dado que los excel - a diferencia de los csv pueden contener varias ‘tablas’/hojas - en el mismo archivo). Veamos, a modo de ejemplo, cómo podemos guardar nuestro resultado como xlsx.
+
+```{r}
+write_xlsx(cemento_granel, path = "cemento_granel.xlsx")
+
+```
+

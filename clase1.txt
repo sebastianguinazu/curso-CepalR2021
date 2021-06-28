@@ -1,0 +1,21 @@
+
+clase 1. intoducción a R
+
+videos:
+
+video1: introducción a R desde 0 
+	- instalación de R
+	- instalación de RStudio
+	- instalación de paquetes (tidyverse)
+
+video2: introducción a github
+	- instalación de github
+	- intalación de github bash
+	- uso básico de github
+	- uso de github desde RStudio
+
+clase:
+
+tema1: estructura de datos: vectores, listas, data frames
+tema2: introduccion a tidyverse
+tema3: programación funcional: loops y funciones

@@ -1,0 +1,17 @@
+
+clase 2. Manipulacion de datos en R
+
+videos:
+
+video1: carga de archivos desde R
+	- carga de txxt
+	- carga de csv
+	- carga de excel
+
+video2: introducción a graficos y ggplot2
+
+tema1: carga de archivos (repaso)
+tema2: merge de dos dataframes
+tema3: carga de excels complejos
+tema4: visualización de datos con R
+

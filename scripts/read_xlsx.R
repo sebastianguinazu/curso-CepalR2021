@@ -20,4 +20,4 @@ read_xlsx(file, sheet=sheets[3], range="B7:LC308")
 read_xlsx(file, sheet=sheets[3], range="B8:LC308")
 
 # tengo que setear los nombres a mano
-arcchivo = read_xlsx(file, sheet=sheets[3], range="B8:LC308")
+achivo = read_xlsx(file, sheet=sheets[3], range="B8:LC308")

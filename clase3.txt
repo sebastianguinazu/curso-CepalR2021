@@ -4,3 +4,7 @@ clase 3. Analisis de Regresion
 videos:
 
 video1: repaso de regresion lineal
+	calculo de los coeficientes y metricas de bondad de ajuste
+	importancia del marco teorico, informacion faltante y sesgos
+
+video2: regresion logistica?
